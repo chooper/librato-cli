@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'librato-cli.rb'
 
 module LibratoCLI
   # Setup and initialization for running as a CLI app happens here. Specifically, on load it will
@@ -45,9 +46,16 @@ module LibratoCLI
         usage
       end
 
-      # TODO: Argument validation
+      # Argument validation
+      unless ARGV[0] == 'ls-metrics'
+        puts PARSER.help
+        puts "Invalid command: #{ARGV[0]}"
+        exit(false)
+      end
 
-      # TODO: Do work
+      # TODO: Cleanly map commands with routines
+      cmd = ARGV[0]
+      LibratoCLI.list_metrics if cmd == 'ls-metrics'
     end
   end
 end

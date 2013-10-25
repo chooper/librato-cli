@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'librato-clig/cli.rb'
+require 'librato-cli/cli.rb'
 
 $stderr.sync = true
 $stdout.sync = true
