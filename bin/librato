@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'librato-clig/cli.rb'
+
+$stderr.sync = true
+$stdout.sync = true
+
+LibratoCLI::CLI.main
+
