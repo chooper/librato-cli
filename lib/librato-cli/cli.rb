@@ -67,7 +67,8 @@ module LibratoCLI
 
       # TODO: Cleanly map commands with routines
       cmd = ARGV[0]
-      LibratoCLI.list_metrics(OPTIONS[:email], OPTIONS[:key]) if cmd == 'ls-metrics'
+      ARGV.shift
+      LibratoCLI.list_metrics(OPTIONS[:email], OPTIONS[:key], ARGV) if cmd == 'ls-metrics'
     end
   end
 end
