@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
+  s.add_dependency "librato-metrics", "~> 1.1.1"
   s.add_development_dependency "rake", "~> 10.0.4"
 
   s.homepage    =

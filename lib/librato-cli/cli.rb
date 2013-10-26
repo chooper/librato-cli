@@ -10,15 +10,21 @@ module LibratoCLI
 
     # Set up default options
     OPTIONS = {}
+    OPTIONS[:email]        = ENV['LIBRATO_EMAIL']
+    OPTIONS[:key]          = ENV['LIBRATO_API_KEY']
 
     # Build parser for command line options
     PARSER = OptionParser.new do |opts|
       opts.banner = "Usage: #{$0} [options] cmd <cmd args>"
 
-      #opts.on("-L LENGTH", "--verb-length LENGTH", Integer,
-      #  "Use verb LENGTH characters long (default: #{OPTIONS[:verb_len]})") do |n|
-      #  OPTIONS[:verb_len] = n
-      #end
+      opts.on("-e EMAIL", "--email EMAIL", String,
+        "Use EMAIL for API access (default: #{OPTIONS[:email]})") do |n|
+        OPTIONS[:email] = n
+      end
+      opts.on("-k KEY", "--key KEY", String,
+        "Use KEY for API access (default: #{OPTIONS[:key]})") do |n|
+        OPTIONS[:key] = n
+      end
     end
 
     # Displays usage
@@ -42,6 +48,12 @@ module LibratoCLI
       # Parse and validate command line arguments
       PARSER.parse!(ARGV) rescue usage
 
+      if OPTIONS[:email].nil? or OPTIONS[:key].nil?
+        puts PARSER.help
+        puts "Need email address and API key to continue"
+        exit(false)
+      end
+
       if ARGV.size < 1
         usage
       end
@@ -55,7 +67,7 @@ module LibratoCLI
 
       # TODO: Cleanly map commands with routines
       cmd = ARGV[0]
-      LibratoCLI.list_metrics if cmd == 'ls-metrics'
+      LibratoCLI.list_metrics(OPTIONS[:email], OPTIONS[:key]) if cmd == 'ls-metrics'
     end
   end
 end
